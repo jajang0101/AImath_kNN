@@ -4,11 +4,12 @@ import matplotlib.pyplot as plt
 def kNN(k, group1, group2, data):
     def dist(p1, p2):
         return (np.sqrt((p2[0]-p1[0])**2 + (p2[1]-p1[1])**2))
-    allPoints = np.empty(len(group1[0]) + len(group2[0]))
+    allPoints = np.ndarray(shape=(len(group1[0]) + len(group2[0]),3), dtype=float)
     for i in range (len(group1[0])):
-        allPoints[i] = [[group1[0, i], group1[1, i]], 1]
+        print(allPoints[i])
+        allPoints[i] = np.array([group1[0, i], group1[1, i], 1])
     for i in range (len(group2[0])):
-        allPoints[i + np.len(group1[0])] = [[group2[0, i], group2[1, i]], -1]
+        allPoints[i + len(group1[0])] = np.array([group2[0, i], group2[1, i], -1])
         
     for i in range(len(allPoints)):
         for i1 in range (i, len(allPoints)):
@@ -20,9 +21,9 @@ def kNN(k, group1, group2, data):
     freq1 = 0
     freq2 = 0
     for i in range (k):
-        if (allPoints[i, 1] == 1):
+        if (allPoints[i, 2] == 1):
             freq1 += 1
-        if (allPoints[i, 1] == -1):
+        if (allPoints[i, 2] == -1):
             freq2 += 1
  
     result = 0
